@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Total.css';
 
 const USCurrencyFormat = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -11,7 +12,6 @@ class Total extends Component {
         (acc, curr) => acc + this.props.selected[curr].cost,
         0
       );
-      console.log(total)
     return (
       <div className="summary__total">
         <div className="summary__total__label">Total</div>

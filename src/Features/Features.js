@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
-// import './Features.css';
+import './Features.css';
+import FeaturesItem from '../FeaturesItem/FeaturesItem.js';
+import slugify from 'slugify';
+
 
 class Features extends Component {
   render() {
+    const feature = this.props.feature
+    const options = this.props.features[feature].map(item => {
+        const itemHash = slugify(JSON.stringify(item));
+        return (
+          <FeaturesItem
+            feature={feature}
+            item={item}
+            itemHash={itemHash}
+            selected={this.props.selected}
+            key={itemHash}
+            updateFeature={this.props.updateFeature}
+          />
+        );
+      });
     return (
-      <div key={itemHash} className="feature__item">
-        <input
-          type="radio"
-          id={itemHash}
-          className="feature__option"
-          name={slugify(feature)}
-          checked={item.name === this.state.selected[feature].name}
-          onChange={e => this.updateFeature(feature, item)}
-        />
-        <label htmlFor={itemHash} className="feature__label">
-          {item.name} ({USCurrencyFormat.format(item.cost)})
-        </label>
-    </div>
+      <fieldset className="feature">
+          <legend className="feature__name">
+            <h3>{this.props.feature}</h3>
+          </legend>
+          {options}
+        </fieldset>
     )
   }
 }
